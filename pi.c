@@ -11,7 +11,7 @@ char *argv[];
     double PI25DT = 3.141592653589793238462643;
     double mypi, pi, h, sum, x;
 
-    n=10000000000;
+    n=1000000;
 
     MPI_Init(&argc,&argv);
     MPI_Comm_size(MPI_COMM_WORLD,&numprocs);
