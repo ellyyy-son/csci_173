@@ -50,20 +50,25 @@ int main(int argc, char *argv[])
 
        CHALLENGE: Edit code to replace decrement at each node. */
 
-    int done = 0;
-
-    while (!done) {
+    while (1) {
         MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
-                MPI_STATUS_IGNORE);
+             MPI_STATUS_IGNORE);
 
         if (message > 0) {
             message--;
-        } else {
-            done = 1;   // detected termination
+            printf("Process %d decremented value: %d\n", rank, message);
         }
 
         MPI_Send(&message, 1, MPI_INT, next, tag, MPI_COMM_WORLD);
+
+        if (message == 0) {
+            printf("Process %d exiting\n", rank);
+            saw_zero = 1;
+        }
     }
+
+    MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
+         MPI_STATUS_IGNORE);
 
     printf("Process %d exiting cleanly\n", rank);
 
