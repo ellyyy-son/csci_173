@@ -58,11 +58,9 @@ int main(int argc, char *argv[])
             printf("Process %d exiting\n", rank);
             break;
         }
-
-        if(message > 0){
-            --message;
-            printf("Process %d decremented value: %d\n", rank, message);
-        }
+        
+        --message;
+        printf("Process %d decremented value: %d\n", rank, message);
 
         MPI_Send(&message, 1, MPI_INT, next, tag, MPI_COMM_WORLD);
     }
