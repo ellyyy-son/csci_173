@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
        message. */
 
     if (0 == rank) {
-        message = 10;
+        message = 100;
 
         printf("Process 0 sending %d to %d, tag %d (%d processes in ring)\n",
                message, next, tag, size);
@@ -51,29 +51,21 @@ int main(int argc, char *argv[])
        CHALLENGE: Edit code to replace decrement at each node. */
 
     while (1) {
-        MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
-                 MPI_STATUS_IGNORE);
+    MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
+             MPI_STATUS_IGNORE);
 
         if (message > 0) {
-            --message;
+            message--;
             printf("Process %d decremented value: %d\n", rank, message);
         }
 
         MPI_Send(&message, 1, MPI_INT, next, tag, MPI_COMM_WORLD);
-        
-        if (0 == message) {
+
+        if (message == 0) {
             printf("Process %d exiting\n", rank);
             break;
         }
     }
-
-    /* The last process does one extra send to process 0, which needs
-       to be received before the program can exit */
-
-    MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
-                MPI_STATUS_IGNORE);
-
-    /* All done */
 
     MPI_Finalize();
     return 0;
