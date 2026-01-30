@@ -16,7 +16,7 @@ char *argv[];
 	MPI_Reduce(&rank, &sum, 1, MPI_DOUBLE, MPI_SUM, 0,
 		   MPI_COMM_WORLD);
     
-	if (myid == 0){
+	if (rank == 0){
 		printf("The sum of all the ranks is %i\n",
 		sum);
     }
