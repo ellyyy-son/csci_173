@@ -53,9 +53,11 @@ int main(int argc, char *argv[])
     while (1) {
         MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
                  MPI_STATUS_IGNORE);
-
-        --message;
-        printf("Process %d decremented value: %d\n", rank, message);
+        
+        if(message > 0){
+            --message;
+            printf("Process %d decremented value: %d\n", rank, message);
+        }
 
         MPI_Send(&message, 1, MPI_INT, next, tag, MPI_COMM_WORLD);
 
