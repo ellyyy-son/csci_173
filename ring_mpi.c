@@ -12,7 +12,7 @@
 
 int main(int argc, char *argv[])
 {
-    int rank, size, next, prev, message, total_message, tag = 201;
+    int rank, size, next, prev, message, last_rank, tag = 201;
 
     /* Start up MPI */
 
@@ -26,14 +26,13 @@ int main(int argc, char *argv[])
 
     next = (rank + 1) % size;
     prev = (rank + size - 1) % size;
-    total_message = 10;
 
     /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
        put the number of times to go around the ring in the
        message. */
 
     if (0 == rank) {
-        message = total_message;
+        message = 10;
 
         printf("Process 0 sending %d to %d, tag %d (%d processes in ring)\n",
                message, next, tag, size);
@@ -58,6 +57,7 @@ int main(int argc, char *argv[])
         if (message > 0) {
             --message;
             printf("Process %d decremented value: %d\n", rank, message);
+            last_rank = rank;
         }
 
         MPI_Send(&message, 1, MPI_INT, next, tag, MPI_COMM_WORLD);
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
         }
     }
     
-    if ((total_message - 1) % size == rank) {
+    if ((last_rank == rank) {
         MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
                  MPI_STATUS_IGNORE);
     }
