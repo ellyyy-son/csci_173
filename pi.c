@@ -23,7 +23,7 @@ char *argv[];
         MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
         if (n == 0) break;
 
-        x = 0;
+        x = 0.0;
         for (i = myid; i < n; i += numprocs) {
             x += (pow(-1, i) / (2*i + 1));
         }
@@ -39,6 +39,9 @@ char *argv[];
                    pi, fabs(pi - PI25DT));
             done = 1;
 		}
+
+		if (done)
+    		break;
     }
     MPI_Finalize();
     return 0;
