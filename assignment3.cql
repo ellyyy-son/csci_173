@@ -2,7 +2,7 @@
 CREATE KEYSPACE IF NOT EXISTS db WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : '1' };
 
 CREATE TABLE IF NOT EXISTS db.userpk (
-    uid UUID PRIMARY
+    uid UUID PRIMARY KEY,
     username text,
     last_name text,
     first_name text,
