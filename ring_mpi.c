@@ -67,14 +67,6 @@ int main(int argc, char *argv[])
         }
     }
 
-    /* The last process does one extra send to process 0, which needs
-       to be received before the program can exit */
-
-    if (0 == rank) {
-        MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
-                 MPI_STATUS_IGNORE);
-    }
-
     /* All done */
 
     MPI_Finalize();
