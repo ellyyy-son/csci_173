@@ -13,7 +13,7 @@ char *argv[];
     MPI_Comm_size(MPI_COMM_WORLD,&numprocs);
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
     
-	MPI_Reduce(&rank, &sum, 1, MPI_DOUBLE, MPI_SUM, 0,
+	MPI_Reduce(&rank, &sum, 1, MPI_INT, MPI_SUM, 0,
 		   MPI_COMM_WORLD);
     
 	if (rank == 0){
@@ -22,5 +22,5 @@ char *argv[];
     }
 
     MPI_Finalize();
-    return 0;
+    return 0;  
 }
