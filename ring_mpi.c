@@ -12,7 +12,7 @@
 
 int main(int argc, char *argv[])
 {
-    int rank, size, next, prev, message, last_rank, tag = 201;
+    int rank, size, next, prev, message, tag = 201;
 
     /* Start up MPI */
 
@@ -68,10 +68,8 @@ int main(int argc, char *argv[])
         }
     }
     
-    if ((last_rank == rank) {
-        MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
-                 MPI_STATUS_IGNORE);
-    }
+    MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
+                MPI_STATUS_IGNORE);
 
     MPI_Finalize();
     return 0;
