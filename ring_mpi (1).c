@@ -12,7 +12,7 @@
 
 int main(int argc, char *argv[])
 {
-    int rank, size, next, prev, message, total_message, tag = 201;
+    int rank, size, next, prev, message, tag = 201;
 
     /* Start up MPI */
 
@@ -26,14 +26,13 @@ int main(int argc, char *argv[])
 
     next = (rank + 1) % size;
     prev = (rank + size - 1) % size;
-    total_message = 10;
 
     /* If we are the "master" process (i.e., MPI_COMM_WORLD rank 0),
        put the number of times to go around the ring in the
        message. */
 
     if (0 == rank) {
-        message = total_message;
+        message = 10;
 
         printf("Process 0 sending %d to %d, tag %d (%d processes in ring)\n",
                message, next, tag, size);
@@ -55,23 +54,27 @@ int main(int argc, char *argv[])
         MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
                  MPI_STATUS_IGNORE);
 
-        if (message > 0) {
+        if (0 == rank) {
             --message;
-            printf("Process %d decremented value: %d\n", rank, message);
+            printf("Process 0 decremented value: %d\n", message);
         }
 
         MPI_Send(&message, 1, MPI_INT, next, tag, MPI_COMM_WORLD);
-
         if (0 == message) {
             printf("Process %d exiting\n", rank);
             break;
         }
     }
-    
-    if ((total_message - 1) % size == rank) {
+
+    /* The last process does one extra send to process 0, which needs
+       to be received before the program can exit */
+
+    if (0 == rank) {
         MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
                  MPI_STATUS_IGNORE);
     }
+
+    /* All done */
 
     MPI_Finalize();
     return 0;
