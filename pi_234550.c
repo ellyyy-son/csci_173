@@ -37,6 +37,7 @@ char *argv[];
         if (myid == 0){
             printf("pi is approximately %.16f, Error is %.16f\n",
                    pi, fabs(pi - PI25DT));
+            printf("%d iterations done.", n);
 		}
 		done = 1;
     }
