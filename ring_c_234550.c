@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
        message. */
 
     if (0 == rank) {
-        message = 50;
+        message = 15;
 
         printf("Process 0 sending %d to %d, tag %d (%d processes in ring)\n",
                message, next, tag, size);
@@ -66,9 +66,6 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    
-    MPI_Recv(&message, 1, MPI_INT, prev, tag, MPI_COMM_WORLD,
-                MPI_STATUS_IGNORE);
 
     MPI_Finalize();
     return 0;
