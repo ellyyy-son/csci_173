@@ -10,6 +10,7 @@ for line in sys.stdin:
     line = line.strip()
 
     if line.startswith("Book "):
+        line = re.match(r"^\w+\s+\d*", line)
         books.add(line)
         current_book = line
         continue
