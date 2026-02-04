@@ -11,17 +11,11 @@ for line in sys.stdin:
 
     if line.startswith("Book "):
         books.add(line)
+        current_book = line
         continue
     
-    if line in books:
-        current_book = line
-        break
-
-for line in sys.stdin:
-    line = line.strip()
-
-    if line in books:
-        current_book = line
+    if current_book is None:
+        continue
 
     line = re.sub(r"^\d+:\d+:\d+\s*", "", line)
 
