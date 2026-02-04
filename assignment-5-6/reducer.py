@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# classic reducer for wordcount
+
 import sys
  
 last_key = None
