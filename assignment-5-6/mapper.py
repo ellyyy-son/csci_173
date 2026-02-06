@@ -3,22 +3,23 @@
 import sys
 import re
 
-books = set()
-current_book = None
-
+book = None
 for line in sys.stdin:
     line = line.strip()
 
+    if line == "*** END OF THE PROJECT GUTENBERG EBOOK THE BIBLE, KING JAMES VERSION, COMPLETE ***":
+        break
+
     if re.match(r"^0\d", line):
-        current_book = line[:2]
+        book = line[:2]
+        line = re.sub(r"^\d+:\d+:\d+\s*", "", line)
     
-    if current_book is None:
+    if book is None:
         continue
 
-    line = re.sub(r"^\d+:\d+:\d+\s*", "", line)
 
     keys = line.split()
 
     for key in keys:
         value = 1
-        print( "%s\t%d" % (current_book, value) )
+        print( "%s\t%d" % (book, value) )
