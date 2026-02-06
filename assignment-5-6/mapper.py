@@ -16,7 +16,10 @@ for line in sys.stdin:
     
     if book is None:
         continue
-
+    
+    if re.match(r"^Book", line):
+        continue
+    
     keys = line.split()
 
     for key in keys:
