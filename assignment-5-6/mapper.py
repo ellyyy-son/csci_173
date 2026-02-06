@@ -10,13 +10,12 @@ for line in sys.stdin:
     if line == "*** END OF THE PROJECT GUTENBERG EBOOK THE BIBLE, KING JAMES VERSION, COMPLETE ***":
         break
 
-    if re.match(r"^0\d", line):
+    if re.match(r"^\d\d", line):
         book = line[:2]
         line = re.sub(r"^\d+:\d+:\d+\s*", "", line)
     
     if book is None:
         continue
-
 
     keys = line.split()
 
