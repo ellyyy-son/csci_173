@@ -9,12 +9,8 @@ current_book = None
 for line in sys.stdin:
     line = line.strip()
 
-    if line.startswith("Book "):
-        match = re.match(r"^\w+\s+\d*", line)
-        line = match.group(1)
-        books.add(line)
-        current_book = line
-        continue
+    if re.match(r"^0\d", line):
+        current_book = line[:2]
     
     if current_book is None:
         continue
