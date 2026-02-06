@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # classic reducer for wordcount
-# wyu@ateneo.edu
 
 import sys
  
