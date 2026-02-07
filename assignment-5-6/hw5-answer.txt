@@ -1,0 +1,14 @@
+In terms of the output, wordcount and aggregatewordcount output the same thing. 
+
+Their main difference lies in how they do the counting of the words. For wordcount, it is the standard mapreduce pipeline where each word in the text gets mapped to a value of 1 by the mapper and a reducer sums the values for each word in order to get the final word count. On the other hand, aggregatewordcount is done by Hadoop's built in aggregation framework (ValueAggregatorBaseDescriptor, ValueAggregatorDescriptor), which uses different defined operators such as LONG_VALUE_SUM to count and calculate the final word count. 
+
+wordcount has:
+WordCount.IntSumReducer
+WordCount.TokenizerMapper
+
+aggregatewordcount has:
+AggregateWordCount.WordCountPlugInClass
+
+SOURCES: 
+https://hadoop.apache.org/docs/r1.2.1/api/org/apache/hadoop/examples/AggregateWordCount.WordCountPlugInClass.html
+https://hadoop.apache.org/docs/r1.2.1/api/org/apache/hadoop/examples/WordCount.html

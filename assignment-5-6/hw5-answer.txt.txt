@@ -1,1 +1,0 @@
-In terms of the output, worcount and aggregatewordcount output the same thing. Their main difference lies in how they do the counting of the words. For wordcount, is just simply counts the words in the input file given. On the other hand
